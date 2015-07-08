@@ -52,5 +52,12 @@ public class RodCunttingTest {
 		assertEquals(RodCutting.rodCuttingBottomUp(4, prices), 10);
 		assertEquals(RodCutting.rodCuttingBottomUp(5, prices), 13);
 	}
-
+	
+	@Test
+	public void testBottomUpWithFullSolution() {
+		System.out.print("rod length 4: ");
+		assertEquals(RodCutting.rodCuttingSolution(4, prices), 10);
+		System.out.print("\nrod length 5: ");
+		assertEquals(RodCutting.rodCuttingSolution(5, prices), 13);
+	}
 }

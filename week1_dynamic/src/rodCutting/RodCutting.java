@@ -62,4 +62,40 @@ public class RodCutting {
 		}
 		return rod[n];
 	}
+	
+	public static int rodCuttingSolution (int n, int[] prices) {
+		int[] s = new int[n+1];
+		for(int i = 0; i < s.length; i++) {
+			 s[i] = -1;
+		}
+		
+		int maxValue = rodCuttingBottomUpExtended(n, prices, s);
+		while(n > 0) {
+			System.out.print("(" + s[n] + ")");
+			n = n - s[n];
+		}
+		return maxValue;
+	}
+	
+	public static int rodCuttingBottomUpExtended(int n, int[] prices, int[] s) {
+		if(n < 0) new IllegalArgumentException("n shold be nonnegative");
+		int [] rod = new int[n+1];
+		
+		rod[0] = prices[0];
+		rod[1] = prices[1];
+		s[0] = 0;
+		s[1] = 1;
+		
+		for(int i = 2; i <= n; i++) {
+			rod[i] = prices[i];
+			s[i] = i;
+			for(int j = 1; j <= i/2; j++) {
+				if(rod[i] < prices[j] + rod[i-j]) {
+					rod[i] = prices[j] + rod[i-j]; // rod[j] + rod[i-j]로 대체할 수 있
+					s[i] = j; 
+				}
+			}
+		}
+		return rod[n];
+	}
 }
