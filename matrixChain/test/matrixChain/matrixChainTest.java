@@ -38,5 +38,4 @@ public class matrixChainTest {
 		 int minCost = MatrixChain.matrixChainBottomUp(matrixArr);
 		 assertEquals(minCost, 64);
 	}
-
 }
