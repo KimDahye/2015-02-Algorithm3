@@ -5,8 +5,49 @@ import core.Graph;
 
 public class shortestPathCyclicGraph {
 	public static int[][] topDownMemoization(Graph g) {
-		return null;
+		int n = g.getVertexSize();
+		int[][] pathWeight = new int[n][n];
+		
+		//pathWeight initialize
+		for(int i = 0; i < n; i ++ ){
+			for(int j = 0; j < n; j++) {
+				if(i == 0) {
+					pathWeight[i][j] = 0; 
+					continue;
+				}
+				pathWeight[i][j] = Integer.MAX_VALUE;
+			}
+		}
+		for(int i = 1; i < n; i ++) {
+			pathWeight[i][n-1] =topDownMemoizationAug(i, n-1, g, pathWeight);
+		}
+		return pathWeight;
 	}
+	
+	private static int topDownMemoizationAug(int i, int j, Graph g, int[][] pathWeight) {
+		if(i == 0 || j == 0 || pathWeight[i][j] < Integer.MAX_VALUE) {
+			return pathWeight[i][j]; 
+		}
+		
+		int endIdx = i;
+		pathWeight[endIdx][j] = topDownMemoizationAug(endIdx, j-1, g, pathWeight);
+
+		for(Edge edge : g.getVertexList().get(i).getIngoingEdgeList()) {
+			int startIdx = g.getVertexIndex(edge.getStartVertex());
+			
+			if(topDownMemoizationAug(startIdx, j-1, g, pathWeight) == Integer.MAX_VALUE){ 
+				continue;
+			}
+
+			int newPathWeight = topDownMemoizationAug(startIdx, j-1, g, pathWeight) + edge.getWeight();
+			
+			if(pathWeight[endIdx][j] > newPathWeight){
+				pathWeight[endIdx][j] = newPathWeight;
+			}			
+		}
+		return pathWeight[endIdx][j];
+	}
+
 	
 	public static int[][] bottomUp(Graph g) {
 		int n = g.getVertexSize();
@@ -44,7 +85,6 @@ public class shortestPathCyclicGraph {
 				}
 			}		
 		}
-	
 		
 		return pathWeight;
 	}

@@ -19,6 +19,10 @@ public class Graph {
 		return this.edgeList;
 	}
 	
+	public ArrayList<Vertex> getVertexList() {
+		return this.vertexList;
+	}
+	
 	public int getVertexIndex(Vertex vertex) {
 		return vertexList.indexOf(vertex);
 	}

@@ -4,14 +4,18 @@ import java.util.ArrayList;
 
 public class Vertex {
 	String value;
-	ArrayList<Vertex> adjacentList; 
+	ArrayList<Edge> ingoingEdgeList; 
 	
-	public Vertex(String value, ArrayList<Vertex> adjacentList) {
+	public Vertex(String value, ArrayList<Edge> ingoingEdgeList) {
 		this.value = value;
-		this.adjacentList = adjacentList;
+		this.ingoingEdgeList = ingoingEdgeList;
 	}
 	
 	public Vertex(String value) {
 		this(value, null);
+	}
+	
+	public ArrayList<Edge> getIngoingEdgeList() {
+		return this.ingoingEdgeList;
 	}
 }

@@ -1,7 +1,6 @@
 package shortestPathCyclicGraph;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 
@@ -17,18 +16,32 @@ public class shortestPathCyclicGraphTest {
 	
 	@Before
 	public void setup() {
-		Vertex s = new Vertex("s"); // Assume that the first vertex is the source vertex.
-		Vertex v1 = new Vertex("v1");
-		Vertex v2 = new Vertex("v2");
-		Vertex v3 = new Vertex("v3");
+		ArrayList<Edge> ingoingEdgeList0 = new ArrayList<Edge>(); 
+		ArrayList<Edge> ingoingEdgeList1 = new ArrayList<Edge>(); 
+		ArrayList<Edge> ingoingEdgeList2 = new ArrayList<Edge>(); 
+		ArrayList<Edge> ingoingEdgeList3 = new ArrayList<Edge>(); 
 		
+		Vertex s = new Vertex("s", ingoingEdgeList0); // Assume that the first vertex is the source vertex.
+		Vertex v1 = new Vertex("v1", ingoingEdgeList1);
+		Vertex v2 = new Vertex("v2", ingoingEdgeList2);
+		Vertex v3 = new Vertex("v3", ingoingEdgeList3);
+		
+		//edgeList initialization for bottomup
 		Edge edge1 = new Edge(s, v1, 1);
 		Edge edge2 = new Edge(v1, v3, -2);
 		Edge edge3 = new Edge(v3, v1, 2);
 		Edge edge4 = new Edge(v3, s, 3);
 		Edge edge5 = new Edge(v1, v2, 2);
 		Edge edge6 = new Edge(v3, v2, 1);
-
+		
+		//ingoingEdgeList initialization for topdown
+		ingoingEdgeList0.add(edge4);
+		ingoingEdgeList1.add(edge1);
+		ingoingEdgeList1.add(edge3);
+		ingoingEdgeList2.add(edge5);
+		ingoingEdgeList2.add(edge6);
+		ingoingEdgeList3.add(edge2);
+				
 		ArrayList<Vertex> vertexList = new ArrayList<Vertex>();
 		vertexList.add(0, s);
 		vertexList.add(1, v1);
@@ -48,7 +61,9 @@ public class shortestPathCyclicGraphTest {
 
 	@Test
 	public void testTopDownMemoization() {
-		fail("Not yet implemented");
+		int[][] pathWeight = shortestPathCyclicGraph.topDownMemoization(graph);
+		assertEquals(-1, pathWeight[3][graph.getVertexSize() - 1]);	
+		assertEquals(0, pathWeight[2][graph.getVertexSize() - 1]);
 	}
 	
 	@Test
