@@ -16,7 +16,6 @@ public class StringMatcherTest {
 	public void testNaive() {		
 		assertEquals(1, StringMatcher.naiveMatcher(text1, pattern1));
 		assertEquals(1, StringMatcher.naiveMatcher(text2, pattern1));
-		//StringMatcher.naiveMatcher(text2, pattern2); //exception test
 		assertEquals(6, StringMatcher.naiveMatcher(text2, pattern3));	
 	}
 	
@@ -24,7 +23,6 @@ public class StringMatcherTest {
 	public void testFiniteAutomata() {
 		assertEquals(1, StringMatcher.finiteAutomataMatcher(text1, pattern1));
 		assertEquals(1, StringMatcher.finiteAutomataMatcher(text2, pattern1));
-		//StringMatcher.finiteAutomataMatcher(text2, pattern2); //exception test
 		assertEquals(6, StringMatcher.finiteAutomataMatcher(text2, pattern3));
 	}
 	
@@ -32,7 +30,13 @@ public class StringMatcherTest {
 	public void testKMP() {
 		assertEquals(1, StringMatcher.KMPmatcher(text1, pattern1));
 		assertEquals(1, StringMatcher.KMPmatcher(text2, pattern1));
-		//StringMatcher.KMPmatcher(text2, pattern2); //exception test
 		assertEquals(6, StringMatcher.KMPmatcher(text2, pattern3));
+	}
+	
+	@Test(expected = IllegalArgumentException.class) 
+	public void testException() {
+		StringMatcher.naiveMatcher(text1, pattern2);
+		StringMatcher.finiteAutomataMatcher(text1, pattern2);
+		StringMatcher.KMPmatcher(text2, pattern2);
 	}
 }
