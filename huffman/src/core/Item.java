@@ -1,11 +1,16 @@
 package core;
 
 public class Item {
-	String value;
-	int freq;
+	public String value;
+	public int freq;
 	
-	Item(String value, int freq) {
+	public Item(String value, int freq) {
 		this.value = value;
 		this.freq = freq;
+	}
+
+	@Override
+	public String toString() {
+		return "[value=" + value + ", freq=" + freq + "]";
 	}
 }

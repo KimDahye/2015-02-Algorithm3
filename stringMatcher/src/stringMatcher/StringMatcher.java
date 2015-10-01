@@ -2,6 +2,7 @@ package stringMatcher;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class StringMatcher {
 
@@ -38,6 +39,9 @@ public class StringMatcher {
 		System.out.println("FA pattern: " + pattern);
 		
 		//TODO. text에서 alphabet 중복 없애서 집합으로 만들기
+		//Set<Character> alphabetSet = new HashSet<Character>(Arrays.asList(text));
+		
+		
 		Map<Pair, Integer> transitionFunction = computeTransitionFunction(pattern, text); 
 		int q = 0;
 		int count = 0;
