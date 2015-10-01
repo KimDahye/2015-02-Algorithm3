@@ -1,51 +1,37 @@
 package stringMatcher;
 
 public class StringMatcher {
-	public static void main(String[] args) {
-		String text1 = "ababc";
-		String text2 = "ababbacababcabc";
-
-		String pattern1 = "ababc";
-		String pattern2 = "";
-		String pattern3 = "a";
-
-		KMPmatcher(text1, pattern1);
-		KMPmatcher(text2, pattern1);
-		KMPmatcher(text2, pattern2);
-		KMPmatcher(text2, pattern3);
-		
-		naiveMatcher(text1, pattern1);
-		naiveMatcher(text2, pattern1);
-		naiveMatcher(text2, pattern2);
-		naiveMatcher(text2, pattern3);
-	}
-
-	static void naiveMatcher(String text, String pattern) {
+	
+	static int naiveMatcher(String text, String pattern) {
 		System.out.println("naive text: " + text);
 		System.out.println("naive pattern: " + pattern);
 		
 		int n = text.length();
 		int m = pattern.length();
-		
-		if (m <= 0)
-			return;
+		int count = 0;
+		if (m < 1)
+			throw new IllegalArgumentException("pattern length should be greater than or equal to 1.");
 
 		for (int textPos = 0; textPos < n - m + 1; textPos++) {
 			if(text.substring(textPos, textPos + m).equals(pattern)){
 				System.out.println("match! pos: " + textPos);
 				System.out.println("substring: " + text.substring(textPos, textPos + m));
+				count++;
 			}
 		}
+		return count;
 	}
 
-	static void KMPmatcher(String text, String pattern) {
+	static int KMPmatcher(String text, String pattern) {
 		System.out.println("KMP text: " + text);
 		System.out.println("KMP pattern: " + pattern);
 
 		int n = text.length();
 		int m = pattern.length();
-		if (m <= 0)
-			return;
+		int count = 0;
+		
+		if (m < 1)
+			throw new IllegalArgumentException("pattern length should be greater than or equal to 1.");
 
 		int[] prefixFunction = computePrefixFunction(pattern);
 		/*
@@ -65,8 +51,10 @@ public class StringMatcher {
 				q = prefixFunction[q - 1];
 				System.out.println("match! pos: " + (textPos - m + 1));
 				System.out.println("substring: " + text.substring(textPos - m + 1, textPos + 1));
+				count++;
 			}
 		}
+		return count;
 	}
 
 	static int[] computePrefixFunction(String pattern) {
