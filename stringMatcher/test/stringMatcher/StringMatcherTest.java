@@ -14,17 +14,25 @@ public class StringMatcherTest {
 	
 	@Test
 	public void testNaive() {		
-		assertEquals(StringMatcher.naiveMatcher(text1, pattern1), 1);
-		assertEquals(StringMatcher.naiveMatcher(text2, pattern1), 1);
+		assertEquals(1, StringMatcher.naiveMatcher(text1, pattern1));
+		assertEquals(1, StringMatcher.naiveMatcher(text2, pattern1));
 		//StringMatcher.naiveMatcher(text2, pattern2); //exception test
-		assertEquals(StringMatcher.naiveMatcher(text2, pattern3), 6);	
+		assertEquals(6, StringMatcher.naiveMatcher(text2, pattern3));	
+	}
+	
+	@Test
+	public void testFiniteAutomata() {
+		assertEquals(1, StringMatcher.finiteAutomataMatcher(text1, pattern1));
+		assertEquals(1, StringMatcher.finiteAutomataMatcher(text2, pattern1));
+		//StringMatcher.finiteAutomataMatcher(text2, pattern2); //exception test
+		assertEquals(6, StringMatcher.finiteAutomataMatcher(text2, pattern3));
 	}
 	
 	@Test
 	public void testKMP() {
-		assertEquals(StringMatcher.KMPmatcher(text1, pattern1), 1);
-		assertEquals(StringMatcher.KMPmatcher(text2, pattern1), 1);
+		assertEquals(1, StringMatcher.KMPmatcher(text1, pattern1));
+		assertEquals(1, StringMatcher.KMPmatcher(text2, pattern1));
 		//StringMatcher.KMPmatcher(text2, pattern2); //exception test
-		assertEquals(StringMatcher.KMPmatcher(text2, pattern3), 6);
+		assertEquals(6, StringMatcher.KMPmatcher(text2, pattern3));
 	}
 }
